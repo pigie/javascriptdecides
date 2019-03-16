@@ -1,0 +1,70 @@
+
+<!-- Прокрутка колесиком мыши -->
+<!-- html -->
+<div class="jlehman">
+    <div class="layer red"></div>
+    <div class="layer blue"></div>
+    <div class="layer yellow"></div>
+</div>
+<!-- -->
+
+/*CSS*/
+.jlehman {
+        width: 500px;
+        height: 450px;
+        border: 5px solid black;
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+
+    .red {
+        background: red;
+        z-index: 50;
+    }
+
+    .blue {
+        background: blue;
+        z-index: 49;
+    }
+
+    .yellow {
+        background: yellow;
+        z-index: 48;
+    }
+
+    .layer {
+        width: 100%;
+        height: 100%;
+        left:0;
+        position: absolute;
+    }
+    
+    /**/
+    
+    
+    // JavaScript
+    
+    window.onload = function() {
+        var mas = document.getElementsByClassName('layer');
+        var r = 0;
+        var y = 0;
+        document.querySelector('.jlehman').onmousewheel=function(event) {
+            if(event.deltaY > 0) {
+                y = y+Math.round(event.deltaY);
+            }
+            else {
+                y = y-Math.round(event.deltaX);
+            }
+            console.log(y);
+            mas[r].style.top = (y*0.1)+'px'; // 0.1 - расстояние которое прокручивает колесико
+            if(y*0.1 >= 450) {
+                r++;
+                y=0;
+                if(r==mas.length-1) {
+                    document.querySelector('.jlehman').onmousewheel = null;
+                }
+            }
+        }
+    }
